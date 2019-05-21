@@ -37,7 +37,8 @@ def post_list(request, tag_slug=None):
     return render(request,
                   'blog/post/list.html',
                   {'page':page,
-                   'posts':posts})
+                   'posts':posts,
+                   'tag':tag})
 
 def post_detail(request,year,month,day,post):
     post = get_object_or_404(Post,

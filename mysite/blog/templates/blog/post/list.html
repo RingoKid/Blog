@@ -8,7 +8,11 @@
         <h2>Posts tagged with "{{ tag.name }}"</h2>
     {% endif %}
 
-    {% for post in posts %}
+    {% regroup posts by publish.year as yearly %}
+
+    {% for year in yearly %}
+        <h4>{{year.grouper}}</h4>
+        {% for post in year.list %}
         <h2>
             <a href="{{ post.get_absolute_url }}">
                 {{post.title}}
@@ -17,9 +21,8 @@
         <p class="date">
             Published {{post.publish}} by {{post.author}}
         </p>
-
         {{post.body|truncatewords:30|linebreaks}}
-
+        {% endfor %}
     {% endfor %}
 {% include "pagination.html" with page=posts %}
 {% endblock %}
